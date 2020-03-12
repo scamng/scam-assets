@@ -11,6 +11,8 @@ console.log(response);
                     iziToast.error({
                         title: 'Error',
                         message: result['message'],
+                        position: "topCenter"
+
                     });
                 }
 
@@ -41,6 +43,8 @@ $(".StartStoryForm").on("submit", function(e) {
                 iziToast.success({
                     title: 'OK',
                     message: result['message'],
+                    position: "topCenter"
+
                 });
 
                 // redirect to edit state 2.
@@ -51,6 +55,8 @@ $(".StartStoryForm").on("submit", function(e) {
                 iziToast.error({
                     title: 'Error',
                     message: result['message'],
+                    position: "topCenter"
+
                 });
 
             }
@@ -64,6 +70,8 @@ $(".StartStoryForm").on("submit", function(e) {
             iziToast.error({
                 title: 'Error',
                 message: "Something is wrong, please, try again later.",
+                position: "topCenter"
+
             });
         }
 
@@ -95,6 +103,8 @@ $(".StartStoryFormScammerInfo").on("submit", function(e) {
             iziToast.success({
                 title: 'OK',
                 message: result['message'],
+                position: "topCenter"
+
             });
 /// take him to the story success page..
             window.location.href = $('#story_submit_success').val();
@@ -104,6 +114,8 @@ $(".StartStoryFormScammerInfo").on("submit", function(e) {
             iziToast.error({
                 title: 'Error',
                 message: result['message'],
+                position: "topCenter"
+
             });
 
         }
@@ -114,3 +126,41 @@ $(".StartStoryFormScammerInfo").on("submit", function(e) {
 });
 
 
+
+
+
+
+
+$(".StartScanHandle").on("submit", function(e) {
+    e.preventDefault();
+    $(this).LoadingOverlay("show");
+
+    var post_path = $('.StartScanHandle').attr('action');
+    var contents = $('.StartScanHandle').serialize();
+
+    $.post(post_path,  contents, function(result){
+        if(result['status'] === 'success'){
+            iziToast.success({
+                title: 'OK',
+                message: result['message'],
+                position: "topCenter"
+            });
+
+             // take him to the
+            window.location.href = $('#path_to_handle_page').val() + '/' + result['data']['handle_type'] + '/' + result['data']['handle'];
+
+        }else{
+
+            iziToast.error({
+                title: 'Error',
+                message: result['message'],
+                position: "topCenter"
+
+            });
+            $('.StartScanHandle').LoadingOverlay("hide");
+
+        }
+
+    });
+
+});
