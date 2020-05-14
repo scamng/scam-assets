@@ -164,3 +164,50 @@ $(".StartScanHandle").on("submit", function(e) {
     });
 
 });
+
+
+
+$("#story_delete_btn").on("click", function(e) {
+
+    var id = $(this).data('id');
+    var status = $(this).data('status');
+    var post_path = $(this).data('post_path');
+    var contents = {
+        id :  id,
+        status : status
+    };
+
+    let my_answer = prompt('Are you sure you want to delete, if yes, what is 1 + 99 ', 10);
+
+    if(my_answer==100) {
+        $.post(post_path, contents, function (result) {
+
+            if (result['status'] === 'success') {
+                iziToast.success({
+                    title: 'OK',
+                    message: result['message'],
+                    position: "topCenter"
+                });
+
+                location.reload()
+            } else {
+                iziToast.error({
+                    title: 'Error',
+                    message: result['message'],
+                    position: "topCenter"
+                });
+
+            }
+
+        });
+    }else{
+        iziToast.error({
+            title: 'Error',
+            message: "Delete has failed simple mathematics",
+            position: "topCenter"
+        });
+
+    }
+
+});
+
